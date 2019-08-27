@@ -6,6 +6,7 @@ This repository contains Packer templates for creating CentOS Vagrant boxes.
 
 ### Current Boxes
 
+**pre-install** `docker`, `docker_compose`
 https://app.vagrantup.com/jayknoxqu/boxes/aliyun-centos
 
 ### Build dependencies
@@ -36,7 +37,11 @@ Customize the boxes by modifying the `centos-template.json` file
   "iso_version": "7.6-x64",
   "disk_size": "65536",
   "memory": "1024",
-  "cpus": "2"
+  "cpus": "2",
+  "docker_user_name":"devops",
+  "docker_user_password":"google00",
+  "docker_version":"18.06.3",
+  "docker_compose_version":"1.24.1"
 }
 ```
 Tip: **iso_url** value can be **local disk path** or **remote url**

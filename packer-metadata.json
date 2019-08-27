@@ -7,7 +7,10 @@
     "disk_size": "65536",
     "memory": "512",
     "cpus": "1",
-    "update": "false"
+    "docker_user_name":"devops",
+    "docker_user_password":"google00",
+    "docker_version":"18.06.3",
+    "docker_compose_version":"1.24.1"
   },
   "builders": [
     {
@@ -41,7 +44,7 @@
   ],
   "post-processors": [
     {
-      "output": "boxs/centos-{{user `iso_version`}}.box",
+      "output": "boxs/centos-docker-{{user `iso_version`}}.box",
       "keep_input_artifact": false,
       "compression_level": "6",
       "type": "vagrant"
@@ -51,19 +54,19 @@
     {
       "type": "shell",
       "environment_vars": [
-        "UPDATE={{user `update`}}"
+        "DOCKER_VERSION={{ user `docker_version` }}",
+        "DOCKER_COMPOSE_VERSION={{ user `docker_compose_version` }}",
+        "DOCKER_USER_NAME={{ user `docker_user_name` }}",
+        "DOCKER_USER_PASSWORD={{ user `docker_user_password` }}"
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "script/update.sh"
+        "script/install_docker.sh"
       ],
       "expect_disconnect": "true"
     },
     {
       "type": "shell",
-      "environment_vars": [
-        "UPDATE={{user `update`}}"
-      ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "script/fix-slow-dns.sh",
