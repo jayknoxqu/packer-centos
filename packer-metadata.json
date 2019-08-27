@@ -6,8 +6,7 @@
     "iso_version": "7.6-x64",
     "disk_size": "65536",
     "memory": "512",
-    "cpus": "1",
-    "update": "false"
+    "cpus": "1"
   },
   "builders": [
     {
@@ -50,20 +49,14 @@
   "provisioners": [
     {
       "type": "shell",
-      "environment_vars": [
-        "UPDATE={{user `update`}}"
-      ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "script/update.sh"
+        "script/base.sh"
       ],
       "expect_disconnect": "true"
     },
     {
       "type": "shell",
-      "environment_vars": [
-        "UPDATE={{user `update`}}"
-      ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "script/fix-slow-dns.sh",
