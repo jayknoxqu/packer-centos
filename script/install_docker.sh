@@ -21,7 +21,7 @@ update_mirrors(){
 deploy_docker(){
 
   echo -e "\e[36m==> Install basic kit and docker dependencies...\e[0m"
-  yum install -y git wget unzip vim yum-utils conntrack-tools net-tools telnet tcpdump bind-utils socat ntp kmod ceph-common dos2unix device-mapper-persistent-data lvm2
+  yum install -y git unzip vim yum-utils conntrack-tools net-tools telnet tcpdump bind-utils socat ntp kmod ceph-common dos2unix device-mapper-persistent-data lvm2
 
   echo -e "\e[36m==> The input docker_version is ${DOCKER_VERSION}...\e[0m"
   local version=$(yum list docker-ce.x86_64 --showduplicates | sort -r | grep ${DOCKER_VERSION} | awk '{print $2}')

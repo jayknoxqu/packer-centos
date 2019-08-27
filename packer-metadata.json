@@ -61,6 +61,7 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
+        "script/base.sh",
         "script/install_docker.sh"
       ],
       "expect_disconnect": "true"
