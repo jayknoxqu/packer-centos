@@ -17,6 +17,7 @@ if grep -q -i "release 6" /etc/redhat-release ; then
     fi
     done
 fi
+
 # Better fix that persists package updates: http://serverfault.com/a/485689
 touch /etc/udev/rules.d/75-persistent-net-generator.rules
 for ndev in `ls -1 /etc/sysconfig/network-scripts/ifcfg-*`; do
@@ -28,11 +29,6 @@ done
 rm -rf /dev/.udev/
 
 DISK_USAGE_BEFORE_CLEANUP=$(df -h)
-
-if [[ $CLEANUP_BUILD_TOOLS  =~ true || $CLEANUP_BUILD_TOOLS =~ 1 || $CLEANUP_BUILD_TOOLS =~ yes ]]; then
-    echo "==> Removing tools used to build virtual machine drivers"
-    yum -y remove gcc libmpc mpfr cpp kernel-devel kernel-headers
-fi
 
 echo "==> Clean up yum cache of metadata and packages to save space"
 yum -y --enablerepo='*' clean all
@@ -54,7 +50,9 @@ case "$?" in
 	2|0) ;;
 	*) exit 1 ;;
 esac
+
 set -e
+
 if [ "x${swapuuid}" != "x" ]; then
     # Whiteout the swap partition to reduce box size
     # Swap is disabled till reboot
