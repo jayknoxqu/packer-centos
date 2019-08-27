@@ -1,8 +1,5 @@
 #!/bin/bash -eux
 
-echo "==> Clear the yum cache..."
-yum clean all
-
 echo "==> Clear out machine id"
 rm -f /etc/machine-id
 touch /etc/machine-id
