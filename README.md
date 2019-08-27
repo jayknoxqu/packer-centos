@@ -4,9 +4,20 @@
 
 This repository contains Packer templates for creating CentOS Vagrant boxes.
 
-### Current Boxes
+
+
+### `Master Branch` Boxes
 
 https://app.vagrantup.com/jayknoxqu/boxes/aliyun-centos
+
+
+
+### `Docker Branch` Boxes
+**pre-install** `docker`, `docker_compose`
+
+https://app.vagrantup.com/jayknoxqu/boxes/docker-centos
+
+
 
 ### Build dependencies
 
@@ -25,7 +36,8 @@ which builds CentOS 7 by default.
 
 
 
-#### Custom boxes
+
+#### Customize template
 
 Customize the boxes by modifying the `centos-template.json` file
 ```json
@@ -49,13 +61,16 @@ Tip: **iso_url** value can be **local disk path** or **remote url**
 packer build -var-file=centos-template.json packer-metadata.json
 ```
 
-debug log output from
+ debug log output from
 
 ```bash
 PACKER_LOG=1 packer build -var-file=centos-template.json packer-metadata.json
 ```
 
+
+
 #### Using box
+
 Modify the value `config.vm.box` in file `Vagrantfile`, and then execute the command
 ```bash
 vagrant up
