@@ -7,21 +7,20 @@
 # Description   : This script is initialize the development environment
 # ==============================================================================
 
-update_mirrors(){
-
-  echo -e "\e[36m==> Add aliyun mirrors to yum source.\e[0m"
-
-  curl http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
-
-  echo -e "\e[36m==> Clean cache and update software.\e[0m"
-
-  yum clean all && yum -y update
-}
-
-deploy_docker(){
+add_dependent(){
 
   echo -e "\e[36m==> Install basic kit and docker dependencies...\e[0m"
   yum install -y git unzip vim yum-utils conntrack-tools net-tools telnet tcpdump bind-utils socat ntp kmod ceph-common dos2unix device-mapper-persistent-data lvm2
+
+  echo -e "\e[36m==> Add aliyun mirrors to yum source.\e[0m"
+  curl http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+
+  echo -e "\e[36m==> Yum make cache all.\e[0m"
+  yum makecache all
+
+}
+
+deploy_docker(){
 
   echo -e "\e[36m==> The input docker_version is ${DOCKER_VERSION}...\e[0m"
   local version=$(yum list docker-ce.x86_64 --showduplicates | sort -r | grep ${DOCKER_VERSION} | awk '{print $2}')
@@ -37,6 +36,7 @@ deploy_composes(){
   curl -L https://github.com/docker/compose/releases/download/${COMPOSES_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
   chmod +x /usr/local/bin/docker-compose
+
 }
 
 new_user(){
@@ -52,6 +52,7 @@ new_user(){
 
   echo -e "\e[36m==> Add the current user [${DOCKER_USER_NAME}] to the docker group.\e[0m"
   usermod -aG docker ${DOCKER_USER_NAME}
+
 }
 
 start_daemon(){
@@ -68,6 +69,7 @@ EOF
 
   echo -e "\e[36m==> Setting docker boot up.\e[0m"
   systemctl enable docker
+
 }
 
 config_network(){
@@ -77,10 +79,11 @@ config_network(){
   echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.conf
   echo "net.bridge.bridge-nf-call-ip6tables = 1" >> /etc/sysctl.conf
   sysctl -p
+
 }
 
 main() {
-  update_mirrors
+  add_dependent
   deploy_docker
   deploy_composes
   new_user
