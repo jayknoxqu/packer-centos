@@ -75,3 +75,6 @@ Modify the value `config.vm.box` in file `Vagrantfile`, and then execute the com
 ```bash
 vagrant up
 ```
+
+#### reference
+https://www.packer.io/docs/builders/virtualbox-iso.html
