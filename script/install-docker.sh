@@ -3,7 +3,7 @@
 # Author      : ZhenJin.Qu
 # Email       : jayknoxqu@gmail.com
 # Date      : 2019.08.26
-# Version     : 1.0.0
+# Version     : 1.0.1
 # Description   : This script is initialize the development environment
 # ==============================================================================
 
@@ -32,8 +32,8 @@ deploy_docker(){
 
 deploy_composes(){
 
-  echo -e "\e[36m==> Install docker-ce-${COMPOSES_VERSION}...\e[0m"
-  curl -L https://github.com/docker/compose/releases/download/${COMPOSES_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  echo -e "\e[36m==> Install docker-ce-${DOCKER_COMPOSE_VERSION}...\e[0m"
+  curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
   chmod +x /usr/local/bin/docker-compose
 
