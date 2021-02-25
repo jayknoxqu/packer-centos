@@ -81,5 +81,8 @@ https://www.packer.io/docs/builders/virtualbox-iso.html
 
 #### 相关中文文档
 [Vagrantfile详细说明](https://www.jianshu.com/p/120c4380c69c)
+
 [CentOS7.6安装Vagrant2.2](https://www.jianshu.com/p/4dfaf993bafb)
+
 [CentOS7.6安装VirtualBox6.0](https://www.jianshu.com/p/c484e51d7ec7)
+
